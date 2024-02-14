@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "account-abstraction",
   "version": "1.0.0",
   "description": "Learning Account Abstraction, understand the EIP 4337 implementation and deployment on Arbitrum.",
@@ -13,9 +12,6 @@
   "dependencies": {
     "@account-abstraction/contracts": "^0.6.0",
     "@openzeppelin/contracts": "^4.2.0",
-=======
-  "dependencies": {
->>>>>>> b6212fbccf28a23c53796f426dac72088c5180cd
     "hardhat": "^2.19.5"
   },
   "devDependencies": {
