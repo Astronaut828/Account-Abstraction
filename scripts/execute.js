@@ -21,16 +21,16 @@ async function main() {
   });
 
   const AccountFactory = await hre.ethers.getContractFactory("AccountFactory");
-  const [signer0] = await hre.ethers.getSigners();
+  const [signer0, signer1] = await hre.ethers.getSigners();
   const address0 = await signer0.getAddress();
-  const initCode =   "0x";
+  const initCode =  "0x";
     // //On multiple deployments, we can use "0x" as the initCode, so it does not reinitialize the contract.
     // FACTORY_ADDRESS +
     // AccountFactory.interface
     //   .encodeFunctionData("createAccount", [address0])
     //   .slice(2);
 
-  console.log({sender});
+  console.log({ sender });
 
   //Prefund only on the frist deployment
   // await entryPoint.depositTo(PM_ADDRESS, {
@@ -44,14 +44,17 @@ async function main() {
     nonce: await entryPoint.getNonce(sender, 0),
     initCode,
     callData: Account.interface.encodeFunctionData("execute"),
-    callGasLimit: 200_000,
-    verificationGasLimit: 200_000,
-    preVerificationGas: 50_000,
+    callGasLimit: 400_000,
+    verificationGasLimit: 400_000,
+    preVerificationGas: 100_000,
     maxFeePerGas: hre.ethers.parseUnits("10", "gwei"),
     maxPriorityFeePerGas: hre.ethers.parseUnits("5", "gwei"),
     paymasterAndData: PM_ADDRESS,
-    signature: "0x",
+    signature: "0x"
   };
+
+  const userOpHash = await entryPoint.getUserOpHash(userOP);
+  userOP.signature = signer0.signMessage(hre.ethers.getBytes(userOpHash))
 
   const tx = await entryPoint.handleOps([userOP], address0);
   const receipt = await tx.wait();
