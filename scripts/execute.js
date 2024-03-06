@@ -31,7 +31,7 @@ async function main() {
 
   console.log({ sender });
 
-  //Prefund only on the frist deployment
+  // //Prefund only on the frist deployment
   // await entryPoint.depositTo(PM_ADDRESS, {
   //   value: hre.ethers.parseEther("100"),
   // });
@@ -43,7 +43,7 @@ async function main() {
     nonce: await entryPoint.getNonce(sender, 0),
     initCode,
     callData: Account.interface.encodeFunctionData("execute"),
-    callGasLimit: 400_000,
+    callGasLimit: 400_000, // Basic estimation - will later have to be retrieved from Bundler
     verificationGasLimit: 400_000,
     preVerificationGas: 100_000,
     maxFeePerGas: hre.ethers.parseUnits("10", "gwei"),
