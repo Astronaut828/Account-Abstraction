@@ -22,19 +22,17 @@ async function main() {
   const AccountFactory = await hre.ethers.getContractFactory("AccountFactory");
   const [signer0, signer1] = await hre.ethers.getSigners();
   const address0 = await signer0.getAddress();
-  const initCode =  "0x";
-    // //On multiple deployments, we can use "0x" as the initCode, so it does not reinitialize the contract.
-    // FACTORY_ADDRESS +
-    // AccountFactory.interface
-    //   .encodeFunctionData("createAccount", [address0])
-    //   .slice(2);
+  const initCode =  // "0x";
+  //On multiple deployments, we can use "0x" as the initCode, so it does not reinitialize the contract.
+  FACTORY_ADDRESS +
+  AccountFactory.interface
+    .encodeFunctionData("createAccount", [address0])
+    .slice(2);
 
-  console.log({ sender });
-
-  // //Prefund only on the frist deployment
-  // await entryPoint.depositTo(PM_ADDRESS, {
-  //   value: hre.ethers.parseEther("100"),
-  // });
+  //Prefund only on the frist deployment
+  await entryPoint.depositTo(PM_ADDRESS, {
+    value: hre.ethers.parseEther("100"),
+  });
 
   const Account = await hre.ethers.getContractFactory("Account");
 
