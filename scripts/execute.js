@@ -4,8 +4,8 @@ const hre = require("hardhat");
 
 // Constants definition: Assign deployment-specific variables, including addresses and the starting nonce for contract deployment.
 const FACTORY_NONCE = 1; // Note: Contract nonces start at 1, indicating the first transaction from an account.
-const FACTORY_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-const EP_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const FACTORY_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const EP_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 const PM_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
 // Main Function Definition: The core asynchronous function where deployment and interaction operations are executed.
@@ -38,6 +38,8 @@ async function main() {
     await entryPoint.depositTo(PM_ADDRESS, {
       value: hre.ethers.parseEther("100"),
     }); 
+
+  console.log({sender}); // ACCOUNT_ADDRESS for testing script.
 
   // Prepare the Account contract for deployment through the factory.
   const Account = await hre.ethers.getContractFactory("Account");
